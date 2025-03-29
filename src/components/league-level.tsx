@@ -1,6 +1,7 @@
 "use client";
 
-import { leagueLevels } from "@/app/players/[id]/page";
+import { leagueLevels } from "@/app/players/[id]/constants";
+
 
 interface LeagueLevelProps {
   level: number;
