@@ -2,13 +2,11 @@
 
 import { leagueLevels } from "@/app/players/[id]/constants";
 
-
 interface LeagueLevelProps {
   level: number;
 }
 
 export function LeagueLevel({ level }: LeagueLevelProps) {
-  // Find league data
   const league = leagueLevels.find((l) => l.id === level) || leagueLevels[0];
 
   return (
