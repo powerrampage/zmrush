@@ -11,7 +11,7 @@ export const metadata = {
 export default async function LeaderboardPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string };
+  searchParams: Promise<{ [key: string]: string }>;
 }) {
   const params = await searchParams;
   const page = Number(params.page) || 1;
