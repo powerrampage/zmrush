@@ -36,6 +36,8 @@ export async function LeaderboardTable({
     page: currentPage - 1,
     size: pageSize,
   });
+  
+  console.log({ data });
 
   const boardData = (data.result ?? []) as BoardDto[];
   const total = data.total;
