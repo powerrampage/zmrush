@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = "https://zmrush.vercel.app/";
 console.log({ BASE_URL });
 
 export const fetchLeaderboardData = async ({
