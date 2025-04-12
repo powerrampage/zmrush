@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
     );
 
     const total = (countResults as any[])[0]?.total || 0;
-
+    console.log({ result: results, total });
     return NextResponse.json({ result: results, total });
   } catch (error) {
     console.error("Leaderboard fetch error:", error);

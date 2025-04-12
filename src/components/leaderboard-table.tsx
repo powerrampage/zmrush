@@ -1,4 +1,3 @@
-import type React from "react";
 import Link from "next/link";
 import {
   Table,
@@ -9,7 +8,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { fetchLeaderboardData } from "@/db/api";
+import { getLeaderboardData } from "@/db/api";
+import { ReactNode } from "react";
 
 interface BoardDto {
   Player: string;
@@ -31,10 +31,10 @@ export async function LeaderboardTable({
   const currentPage = Math.max(1, page);
   const pageSize = 10;
 
-  const data = await fetchLeaderboardData({
+  const data = await getLeaderboardData({
+    nickname: search,
     page: currentPage - 1,
     size: pageSize,
-    search,
   });
 
   const boardData = (data.result ?? []) as BoardDto[];
@@ -129,7 +129,7 @@ function PaginationLink({
   page: number;
   search: string;
   disabled: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   if (disabled) {
     return (
