@@ -3,6 +3,7 @@ const BASE_URL =
     ? "http://localhost:3000"
     : process.env.NEXT_PUBLIC_BASE_URL;
 console.log({ BASE_URL });
+
 export const fetchLeaderboardData = async ({
   page,
   size,

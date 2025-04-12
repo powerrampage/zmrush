@@ -2,43 +2,48 @@ import { pool } from "@/db";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const searchParams = request?.nextUrl?.searchParams;
+  const searchParams = request.nextUrl.searchParams;
   const limit = Number(searchParams.get("size")) || 10;
   const page = Number(searchParams.get("page")) || 0;
   const nickname = searchParams.get("nickname");
 
+  let connection;
+
   try {
+    connection = await pool.getConnection();
+
     let query = `SELECT * FROM rank_system_new WHERE Player != 'BOT'`;
-    const queryParams: any[] = [limit, page * limit];
+    const queryParams: any[] = [];
 
     if (nickname) {
       query += ` AND NickName = ?`;
-      queryParams.unshift(nickname);
+      queryParams.push(nickname);
     }
 
     query += ` ORDER BY level DESC LIMIT ? OFFSET ?`;
+    queryParams.push(limit, page * limit);
 
-    const results = await pool.query(query, queryParams);
+    const [results] = await connection.query(query, queryParams);
 
-    const totalQuery = nickname
-      ? "SELECT COUNT(*) as total FROM rank_system_new WHERE Player != 'BOT' AND NickName = ?"
-      : "SELECT COUNT(*) as total FROM rank_system_new WHERE Player != 'BOT'";
+    const countQuery = nickname
+      ? `SELECT COUNT(*) as total FROM rank_system_new WHERE Player != 'BOT' AND NickName = ?`
+      : `SELECT COUNT(*) as total FROM rank_system_new WHERE Player != 'BOT'`;
 
-    const totalResult = (await pool.query(
-      totalQuery,
+    const [countResults] = await connection.query(
+      countQuery,
       nickname ? [nickname] : []
-    )) as any[];
-    const total = totalResult[0]?.total || 0;
+    );
 
-    await pool.end();
+    const total = (countResults as any[])[0]?.total || 0;
 
     return NextResponse.json({ result: results, total });
   } catch (error) {
-    await pool.end();
-
+    console.error("Leaderboard fetch error:", error);
     return NextResponse.json(
       { error: "Failed to fetch leaderboard data", reason: error },
       { status: 500 }
     );
+  } finally {
+    if (connection) connection.release();
   }
 }
