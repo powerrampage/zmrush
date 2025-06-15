@@ -2,10 +2,10 @@
 import mysql from "mysql2/promise";
 
 export const pool = mysql.createPool({
-  host: process.env.MYSQL_DB_HOST,
-  user: process.env.MYSQL_DB_USER,
-  password: process.env.MYSQL_DB_PASSWORD,
-  database: process.env.MYSQL_DB_USER,
+  host: "db4.myarena.ru", // process.env.MYSQL_DB_HOST,
+  user: "u40758_zm_rush_server", // process.env.MYSQL_DB_USER,
+  password: "I3m6K6z3D8", // process.env.MYSQL_DB_PASSWORD,
+  database: "u40758_zm_rush_server", // process.env.MYSQL_DB_USER,
   port: 3306, // Number(process.env.MYSQL_DB_PORT),
   waitForConnections: true,
   connectionLimit: 10,
