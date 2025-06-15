@@ -5,11 +5,9 @@ import { ServerRecordsTable } from "@/components/server-records-table";
 import { AboutSection } from "@/components/about-section";
 import { PartnerSection } from "@/components/partner-section";
 import { VideoSection } from "@/components/video-section";
-import { pool } from "@/db";
 
 export default async function HomePage() {
-  const [rows] = await pool.query("SELECT * FROM rank_system_new");
-  console.log({ rows });
+
   return (
     <main className="container mx-auto px-4 py-8">
       {/* Hero Section */}
