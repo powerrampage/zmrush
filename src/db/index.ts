@@ -1,16 +1,30 @@
-// import mysql from "serverless-mysql";
-import mysql from "mysql2/promise";
+/* eslint-disable prefer-const */
+/* eslint-disable no-var */
+// lib/mysql.ts
+import mysql from 'mysql2/promise';
 
-export const pool = mysql.createPool({
-  host: "db4.myarena.ru", // process.env.MYSQL_DB_HOST,
-  user: "u40758_zm_rush_server", // process.env.MYSQL_DB_USER,
-  password: "I3m6K6z3D8", // process.env.MYSQL_DB_PASSWORD,
-  database: "u40758_zm_rush_server", // process.env.MYSQL_DB_USER,
-  port: 3306, // Number(process.env.MYSQL_DB_PORT),
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-  connectTimeout: 10000, // 10 sec
-});
+let pool: mysql.Pool;
 
-console.log("env", process.env);
+declare global {
+  var mysqlPool: mysql.Pool | undefined;
+}
+
+if (!global.mysqlPool) {
+  global.mysqlPool = mysql.createPool({
+    host: "db4.myarena.ru",
+    user: "u40758_zm_rush_server",
+    password: "1231",
+    database: "u40758_zm_rush_server",
+    port: 3306,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+    connectTimeout: 10000,
+  });
+}
+
+pool = global.mysqlPool;
+
+export {
+  pool
+};
