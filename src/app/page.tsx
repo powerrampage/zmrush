@@ -12,7 +12,7 @@ export default async  function HomePage() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      {JSON.stringify(rows)}
+      {rows ?  JSON.stringify(rows) : null}
       {/* Hero Section */}
       <div className="flex flex-col items-center justify-center text-center mb-12 mt-8">
         <Image
