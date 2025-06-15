@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable no-var */
 // lib/mysql.ts
-import mysql from 'mysql2/promise';
+import mysql from "mysql2/promise";
 
 let pool: mysql.Pool;
 
@@ -11,10 +11,10 @@ declare global {
 
 if (!global.mysqlPool) {
   global.mysqlPool = mysql.createPool({
-    host: "db4.myarena.ru",
-    user: "u40758_zm_rush_server",
-    password: "1231",
-    database: "u40758_zm_rush_server",
+    host: process.env.MYSQL_DB_HOST,
+    user: process.env.MYSQL_DB_USER,
+    password: process.env.MYSQL_DB_PASSWORD,
+    database: process.env.MYSQL_DB_NAME,
     port: 3306,
     waitForConnections: true,
     connectionLimit: 10,
@@ -25,6 +25,4 @@ if (!global.mysqlPool) {
 
 pool = global.mysqlPool;
 
-export {
-  pool
-};
+export { pool };
