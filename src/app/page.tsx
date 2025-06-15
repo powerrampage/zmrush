@@ -1,18 +1,17 @@
-import Image from "next/image"
-import Link from "next/link"
-import { ServerCard } from "@/components/server-card"
-import { ServerRecordsTable } from "@/components/server-records-table"
-import { AboutSection } from "@/components/about-section"
-import { PartnerSection } from "@/components/partner-section"
-import { VideoSection } from "@/components/video-section"
-import { pool } from "@/db"
+import Image from "next/image";
+import Link from "next/link";
+import { ServerCard } from "@/components/server-card";
+import { ServerRecordsTable } from "@/components/server-records-table";
+import { AboutSection } from "@/components/about-section";
+import { PartnerSection } from "@/components/partner-section";
+import { VideoSection } from "@/components/video-section";
+import { pool } from "@/db";
 
-export default async  function HomePage() {
-  const [rows] = await pool.query('SELECT * FROM rank_system_new');
-
+export default async function HomePage() {
+  const [rows] = await pool.query("SELECT * FROM rank_system_new");
+  console.log({ rows });
   return (
     <main className="container mx-auto px-4 py-8">
-      {rows ?  JSON.stringify(rows) : null}
       {/* Hero Section */}
       <div className="flex flex-col items-center justify-center text-center mb-12 mt-8">
         <Image
@@ -33,7 +32,9 @@ export default async  function HomePage() {
           />
           <span className="text-gray-400">Estonian Kreedz Community</span>
         </div>
-        <h2 className="text-xl text-gray-300">Join our community and explore the world of speedrunning</h2>
+        <h2 className="text-xl text-gray-300">
+          Join our community and explore the world of speedrunning
+        </h2>
       </div>
 
       {/* Server Cards */}
@@ -100,5 +101,5 @@ export default async  function HomePage() {
       {/* Videos */}
       <VideoSection />
     </main>
-  )
+  );
 }
